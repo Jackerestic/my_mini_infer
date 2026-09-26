@@ -28,7 +28,7 @@
 - [ ] 手写一个动态数组，支持扩容。
 - [ ] 手写矩阵乘法，不看现成代码。
 - [ ] 手写一个 RAII 包装类。
-- [ ] 能读懂 my_mini_infer 每个函数的每一行，并写进 docs/self_check.md。
+- [ ] 能读懂 my_mini_infer 每个函数的每一行，并写进 m0/docs/self_check.md。
 - [ ] 能不查笔记独立完成 CMake 配置、构建、测试。
 - [ ] 建立小而频的 commit 习惯。
 
@@ -53,7 +53,7 @@
 ### 第 4 周（10/16 - 10/22）：移动语义与矩阵乘法
 - 解释值传递、引用传递、移动语义。
 - 手写朴素矩阵乘法。
-- 补完 docs/self_check.md 代码部分。
+- 补完 m0/docs/self_check.md 代码部分。
 
 ### 第 5 周（10/23 - 10/31）：工具链与收口
 - 独立用 CMake 配置、构建、跑测试。
@@ -71,7 +71,7 @@
   .\build.bat test
   ```
   看到 Test OK，就知道项目现在是活的。
-- [ ] 3. 打开 docs/self_check.md，只回答第 1 部分：Tensor 是什么。
+- [ ] 3. 打开 m0/docs/self_check.md，只回答第 1 部分：Tensor 是什么。
   不会就先写：我不会。不要空着，也不要复制代码注释。
 
 这三件事完成，今天就算有效推进。
@@ -106,10 +106,10 @@
 - 四个入口：`. ..\tools\install-path.ps1`（一次性写 PATH）、
   `. ..\tools\doctor.ps1`（自检）、`. ..\tools\env.ps1`（临时救急）、
   `.\build.bat gpp|cmake|test`（一条命令跑完）。
-- 工具链现状、踩过的坑、坏了怎么修，都写在 `docs/m0_toolchain.md`。
+- 工具链现状、踩过的坑、坏了怎么修，都写在 `m0/docs/m0_toolchain.md`。
 - 一句提醒：**别再往 `tools\mingw64` 里塞更新版本的 GCC**。
   中文路径 + 新版 binutils 会直接编译失败（GCC 16.2.0 实测不行），
-  原因和证据见 `docs/m0_toolchain.md` 第 4 节。
+  原因和证据见 `m0/docs/m0_toolchain.md` 第 4 节。
 
 ## 7. 卡住时只做这三步
 
@@ -122,16 +122,19 @@
 
 ## 8. 当前下一轮做什么
 
-1. 读 docs/m0_cmake_explained.md，理解 CMake 是什么。
-2. 进入 examples/m0_cmake_demo。
-3. 运行：
-   cmake -S . -B build -G Ninja
-   cmake --build build
-   .\build\m0_hello.exe
-4. 观察 build 目录里生成了哪些文件。
-5. 在 docs/self_check.md 第四部分用自己的话回答：
-   - CMake 是什么？
-   - CMake、Ninja、g++ 分别负责什么？
-   - -S、-B、-G 是什么？
-   - 配置、构建、测试分别用哪条命令？
-6. 只有能不看资料讲出来，才把 CMake 记为完成。
+M0 已完成。
+
+- 完成日期：2026-09-26
+- 原始完成 commit：c9b19ce
+- 验收证据：m0/docs/self_check.md
+- M0 材料已整合到 m0/ 目录
+
+现在进入 M1 前置：
+
+1. 读 docs/m1_file_io.md。
+2. 补完 examples/m1_file_io.cpp 的 TODO 1 到 TODO 3。
+3. 在项目根目录运行：
+   g++ -std=c++17 -Wall -Wextra examples\m1_file_io.cpp -o build\m1_file_io.exe
+   .\build\m1_file_io.exe
+4. 确认能打印 data/mlp.txt 的前几行。
+5. 完成后发我代码和输出，再进入矩阵解析。

@@ -5,7 +5,7 @@
 #include <cmath>
 
 // =====================================================================
-// TODO(M0): 在 docs/self_check.md 第二部分，逐函数解释本文件。
+// TODO(M0): 在 m0/docs/self_check.md 第二部分，逐函数解释本文件。
 // 顺序：Tensor::Tensor -> rows/cols/size -> shape -> at -> fill -> print
 //       -> add -> matmul -> relu -> transpose -> softmax -> linear
 // 每个函数都回答：输入是什么？输出是什么？为什么这么写？

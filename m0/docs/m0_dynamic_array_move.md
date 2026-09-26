@@ -81,7 +81,7 @@ DynamicArray& operator=(DynamicArray&& other) noexcept {
 
 ## 4. 实验
 
-在 examples/m0_dynamic_array.cpp 里加入：
+在 m0/examples/m0_dynamic_array.cpp 里加入：
 
 ```cpp
 #include <utility>   // std::move
@@ -122,7 +122,7 @@ std::cout << "c.size=" << c.size() << '\n';   // 应该 2
 ## 6. 编译运行
 
 ```powershell
-g++ -std=c++17 -Wall -Wextra examples\m0_dynamic_array.cpp -o build\m0_dynamic_array.exe
+g++ -std=c++17 -Wall -Wextra m0\examples\m0_dynamic_array.cpp -o build\m0_dynamic_array.exe
 .\build\m0_dynamic_array.exe
 ```
 

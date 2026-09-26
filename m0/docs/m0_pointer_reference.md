@@ -55,12 +55,12 @@ int& r = a;     // r 是 a 的另一个名字
 
 ## 5. 实验
 
-打开 examples/m0_pointer_reference.cpp，按 TODO 1 到 TODO 7 补完。
+打开 m0/examples/m0_pointer_reference.cpp，按 TODO 1 到 TODO 7 补完。
 
 编译运行：
 
 ```powershell
-g++ -std=c++17 -Wall -Wextra examples\m0_pointer_reference.cpp -o build\m0_pointer_reference.exe
+g++ -std=c++17 -Wall -Wextra m0\examples\m0_pointer_reference.cpp -o build\m0_pointer_reference.exe
 .\build\m0_pointer_reference.exe
 ```
 

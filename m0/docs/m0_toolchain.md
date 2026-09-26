@@ -257,8 +257,8 @@ g++ --version
 - `..\tools\fix-system-path.ps1`：清掉 PATH 里的不可见字符（附录 A）；默认只预览
 - `..\tools\path-backup.txt`：`install-path.ps1` 备份的原 PATH 值
 - `build.bat`：一条命令搞定 g++ / CMake / 测试
-- `docs/m0_cmake.md`：CMake 怎么用（教材）
-- `docs/m0_compile_pipeline.md`：一个 .cpp 怎么变成 .exe（教材）
+- `m0/docs/m0_cmake.md`：CMake 怎么用（教材）
+- `m0/docs/m0_compile_pipeline.md`：一个 .cpp 怎么变成 .exe（教材）
 
 ---
 

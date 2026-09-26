@@ -80,12 +80,12 @@ std::cout << a[0];
 
 ## 6. 实验
 
-打开 examples/m0_dynamic_array.cpp，按 TODO 补完。
+打开 m0/examples/m0_dynamic_array.cpp，按 TODO 补完。
 
 编译运行：
 
 ```powershell
-g++ -std=c++17 -Wall -Wextra examples\m0_dynamic_array.cpp -o build\m0_dynamic_array.exe
+g++ -std=c++17 -Wall -Wextra m0\examples\m0_dynamic_array.cpp -o build\m0_dynamic_array.exe
 .\build\m0_dynamic_array.exe
 ```
 

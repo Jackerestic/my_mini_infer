@@ -1,7 +1,7 @@
 # Tensor 入门讲解
 
 > 这份文件解释 src/tensor.cpp 和 include/mini_infer/tensor.hpp 里那些你没写的辅助代码。
-> 不要背，也不要抄。读完以后，用自己的话重写 docs/self_check.md 第一部分。
+> 不要背，也不要抄。读完以后，用自己的话重写 m0/docs/self_check.md 第一部分。
 
 ## 0. 先看一个 2x3 的例子
 
@@ -233,6 +233,6 @@ void Tensor::print() const {
 
 1. 在纸上画一个 2x4 的表，写出它的 shape_ 和 data_。
 2. 在上面例子中，写出 at(1, 3) 对应的 data_ 下标。
-3. 回到 docs/self_check.md 第一部分，用你自己的话重写 1 到 5 题。
+3. 回到 m0/docs/self_check.md 第一部分，用你自己的话重写 1 到 5 题。
 
 写完发我，我只看这 5 题有没有真正理解。

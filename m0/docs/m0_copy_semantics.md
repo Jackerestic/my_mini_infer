@@ -91,7 +91,7 @@ this == &other 是判断是不是自己赋值给自己。
 
 ## 5. 实验
 
-在 examples/m0_dynamic_array.cpp 里加上这两个函数，并在 main 里测试：
+在 m0/examples/m0_dynamic_array.cpp 里加上这两个函数，并在 main 里测试：
 
 ```cpp
 DynamicArray a;
@@ -113,7 +113,7 @@ std::cout << a[1] << " " << c[1] << '\n';   // 应该输出 2 200
 ## 6. 编译运行
 
 ```powershell
-g++ -std=c++17 -Wall -Wextra examples\m0_dynamic_array.cpp -o build\m0_dynamic_array.exe
+g++ -std=c++17 -Wall -Wextra m0\examples\m0_dynamic_array.cpp -o build\m0_dynamic_array.exe
 .\build\m0_dynamic_array.exe
 ```
 

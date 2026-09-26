@@ -53,10 +53,11 @@
 
 ## 6. 现有项目代码
 
-- `docs/m0_tensor_walkthrough.md`：先读这个，它解释了辅助代码。`n- `include/mini_infer/tensor.hpp`
+- `m0/docs/m0_tensor_walkthrough.md`：先读这个，它解释了辅助代码。
+- `include/mini_infer/tensor.hpp`
 - `src/tensor.cpp`
 - `tests/test_tensor.cpp`
-- 目标：把 `docs/self_check.md` 第二部分的表格填完。
+- 目标：把 `m0/docs/self_check.md` 第二部分的表格填完。
 - 方法：
   - 不要一行一行从第一行读到最后。
   - 按函数读：先看函数签名，猜它做什么；再看函数体；最后用自己的话写出来。

@@ -1,7 +1,7 @@
 # M0 实验：一个 .cpp 文件怎么变成 .exe
 
 > 目标：不要背四步。亲手生成中间文件，看到每一步的产物不一样。
-> 用 examples/m0_hello.cpp 做实验。
+> 用 m0/examples/m0_hello.cpp 做实验。
 
 ## 准备
 
@@ -22,7 +22,7 @@ g++ --version
 命令：
 
 ```powershell
-g++ -E examples\m0_hello.cpp -o build\m0_hello.i
+g++ -E m0\examples\m0_hello.cpp -o build\m0_hello.i
 ```
 
 产物：`build\m0_hello.i`
@@ -46,7 +46,7 @@ Get-Content build\m0_hello.i | Select-Object -First 30
 命令：
 
 ```powershell
-g++ -S examples\m0_hello.cpp -o build\m0_hello.s
+g++ -S m0\examples\m0_hello.cpp -o build\m0_hello.s
 ```
 
 产物：`build\m0_hello.s`
@@ -66,7 +66,7 @@ Get-Content build\m0_hello.s | Select-Object -First 40
 命令：
 
 ```powershell
-g++ -c examples\m0_hello.cpp -o build\m0_hello.o
+g++ -c m0\examples\m0_hello.cpp -o build\m0_hello.o
 ```
 
 产物：`build\m0_hello.o`
@@ -108,14 +108,14 @@ hello from m0_hello.cpp
 平时我们写的：
 
 ```powershell
-g++ examples\m0_hello.cpp -o build\m0_hello.exe
+g++ m0\examples\m0_hello.cpp -o build\m0_hello.exe
 ```
 
 其实是把上面四步一次性做完了。
 
 ## 写完 self_check
 
-做完实验后，回到 docs/self_check.md 第三部分第 1 题，用你自己的话回答：
+做完实验后，回到 m0/docs/self_check.md 第三部分第 1 题，用你自己的话回答：
 
 - 预处理做了什么？
 - 编译做了什么？

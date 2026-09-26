@@ -74,7 +74,7 @@ my_mini_infer/
 > GCC 8.1.0 配的是老 binutils，对中文路径反而是好的。
 > 而且 GCC 8 是第一个完整支持 C++17 的版本，本项目要的就是 C++17。
 >
-> 完整的排查过程和证据在 `docs/m0_toolchain.md` 第 4 节。
+> 完整的排查过程和证据在 `m0/docs/m0_toolchain.md` 第 4 节。
 
 **现在新开窗口就能直接用，不需要每次激活。** 工具链已经写进用户级 PATH
 （`HKCU\Environment`，不需要管理员权限），新开的 PowerShell / cmd / VS Code
@@ -99,7 +99,7 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 > `. ..\tools\env.ps1`？因为那两行都是「**只对当前窗口有效**」的临时补丁：
 > `$env:Path` 是进程级的，窗口一关就没了；执行策略默认是 Restricted，`.ps1`
 > 会被拒绝。现在改成一次性的用户级设置，就不用每次都来一遍了。
-> 详细对比见 `docs/m0_toolchain.md` 第 1 节。
+> 详细对比见 `m0/docs/m0_toolchain.md` 第 1 节。
 
 `env.ps1` / `env.cmd` **没有删**，留作「临时救急」：比如你不想动任何永久设置、
 或者在别人的机器上。用法不变：
@@ -211,9 +211,9 @@ ctest --test-dir build --output-on-failure
 请先看：
 
 - 项目根目录 `TODO.md`：当前只做 M0 的操作清单；
-- `docs/self_check.md`：M0 自我检查与代码讲解模板；
+- `m0/docs/self_check.md`：M0 自我检查与代码讲解模板；
 - `docs/TODO_M1_after_11_01.md`：M1 数值对齐操作单，11/1 后再开始；
-- `docs/m0_toolchain.md`：工具链速查（有什么、在哪、坏了怎么修、踩过哪些坑）。
+- `m0/docs/m0_toolchain.md`：工具链速查（有什么、在哪、坏了怎么修、踩过哪些坑）。
 
 ## 2026-09-25 环境状态（实测通过）
 

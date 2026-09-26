@@ -95,30 +95,24 @@
 std::move本身并没有搬东西，它只是将原对象变为一个右值，真正搬东西的是vector中的移动构造函数
 ## 第四部分：工具链
 
-我能不能在不看笔记的情况下完成下面命令？能 / 不能：
-cmake相当于一个蓝图设计师，告诉Ninja/Makefile要做什么，编译文件的先后，要链接的库和头文件，使用什么工具
-Ninja则负责具体执行
--S是源代码文件 -B 构建的目标文件 -G 生成器，决定cmake生成哪种构建文件
+我能不能在不看笔记的情况下完成下面命令？能。
+
+CMake 是一个构建系统生成器。它读取 CMakeLists.txt，生成 Ninja 或 Makefile 需要的构建文件，并描述要编译哪些源文件、链接哪些库、头文件在哪里。Ninja 负责按构建规则调度并执行构建。真正编译和链接的是 g++。CTest 负责运行 add_test 注册的测试。
+
+-S 是源代码目录。-B 是构建目录。-G 是生成器，例如 Ninja 或 MinGW Makefiles。
+
 ```powershell
-cmake -S . -B build  配置
-cmake --build build  构建
-ctest --test-dir build --output-on-failure  测试
+cmake -S . -B build -G Ninja                    # 配置
+cmake --build build                             # 构建
+ctest --test-dir build --output-on-failure      # 测试
 ```
 
 我的实际执行记录：
 - 日期：2026-09-26
 - 结果：
-  在 examples/m0_cmake_demo 中：
-  cmake -S . -B build -G Ninja
-  cmake --build build
-  .\build\m0_hello.exe
-  输出：hello cmake
-
-  在主项目中：
-  ctest --test-dir build --output-on-failure
-  输出：100% tests passed, 0 tests failed out of 1
+  在 m0/examples/m0_cmake_demo 中执行配置、构建、运行，输出 hello cmake。
+  在主项目中执行 ctest --test-dir build --output-on-failure，输出 100% tests passed, 0 tests failed out of 1。
 - 报错：无
-
 ## 第五部分：每周证据
 
 | 周 | 我新写的代码 | commit | 我讲清楚了什么 | 还不会什么 |

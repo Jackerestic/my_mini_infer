@@ -141,7 +141,7 @@ add_test(NAME test_tensor COMMAND $<TARGET_FILE:test_tensor>)
 基础实验在：
 
 ```text
-examples/m0_cmake_demo/
+m0/examples/m0_cmake_demo/
 ├─ CMakeLists.txt
 └─ main.cpp
 ```
@@ -149,7 +149,7 @@ examples/m0_cmake_demo/
 进入目录：
 
 ```powershell
-cd examples\m0_cmake_demo
+cd m0\examples\m0_cmake_demo
 ```
 
 配置、构建、运行：
@@ -170,7 +170,7 @@ hello cmake
 
 ## 6. 完成后回答
 
-在 docs/self_check.md 第四部分写下：
+在 m0/docs/self_check.md 第四部分写下：
 
 - CMake 是什么？
 - CMake 和 Ninja、g++ 分别负责什么？

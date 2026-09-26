@@ -59,12 +59,12 @@ delete p;
 
 ## 4. 观察实验
 
-打开 examples/m0_stack_heap.cpp，按里面的 TODO 补完。
+打开 m0/examples/m0_stack_heap.cpp，按里面的 TODO 补完。
 
 然后编译运行：
 
 ```powershell
-g++ -std=c++17 -Wall -Wextra examples\m0_stack_heap.cpp -o build\m0_stack_heap.exe
+g++ -std=c++17 -Wall -Wextra m0\examples\m0_stack_heap.cpp -o build\m0_stack_heap.exe
 .\build\m0_stack_heap.exe
 ```
 

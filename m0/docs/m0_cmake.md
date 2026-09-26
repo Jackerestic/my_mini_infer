@@ -95,7 +95,7 @@ ctest --test-dir build --output-on-failure
 
 ## 5. 记录结果
 
-完成后，在 docs/self_check.md 第四部分填写：
+完成后，在 m0/docs/self_check.md 第四部分填写：
 
 - 日期
 - 能不能独立完成
@@ -135,7 +135,7 @@ ctest --version
 
 期望看到 `cmake version 4.4.3` 和 `ctest version 4.4.3`。
 
-> 这套「零激活」是怎么来的（一次性设置，见 `docs/m0_toolchain.md` 第 1 节）：
+> 这套「零激活」是怎么来的（一次性设置，见 `m0/docs/m0_toolchain.md` 第 1 节）：
 >
 > ```powershell
 > . ..\tools\install-path.ps1                                          # 写进用户级 PATH
@@ -165,7 +165,7 @@ ctest --version
   这就是本项目的工具链里专门放了一份 `ninja.exe` 的原因。
 - **编译器本身**：winlibs 出的新版 GCC（如 16.2.0）配的新 binutils
   在中文路径下会直接编不过（`can't create ...o` / `cannot find crt2.o`）。
-  本项目因此固定用 GCC 8.1.0。完整证据和边界表见 `docs/m0_toolchain.md` 第 4 节。
+  本项目因此固定用 GCC 8.1.0。完整证据和边界表见 `m0/docs/m0_toolchain.md` 第 4 节。
 
 确认 Ninja 在不在：
 

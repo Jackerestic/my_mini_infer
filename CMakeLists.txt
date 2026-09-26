@@ -1,4 +1,4 @@
-﻿cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.15)
 project(my_mini_infer LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -26,4 +26,4 @@ add_executable(test_tensor
 )
 target_link_libraries(test_tensor PRIVATE mini_infer)
 
-add_test(NAME test_tensor COMMAND test_tensor)
+add_test(NAME test_tensor COMMAND $<TARGET_FILE:test_tensor>)

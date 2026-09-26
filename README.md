@@ -53,8 +53,9 @@ my_mini_infer/
 
 | 工具 | 用途 | 位置 |
 | --- | --- | --- |
-| `g++` 16.2.0 (MinGW-w64) | 编译 C++17 | `..\tools\mingw64\bin` |
-| `mingw32-make` 4.4.1 | make | `..\tools\mingw64\bin` |
+| `g++` 8.1.0 (MinGW-w64) | 编译 C++17 | `..\tools\mingw64\bin` |
+| `mingw32-make` 4.2.1 | make | `..\tools\mingw64\bin` |
+| `gdb` 8.1 | 调试 | `..\tools\mingw64\bin` |
 | `cmake` 4.4.3 | 生成构建系统 | `..\tools\cmake\bin` |
 | `ninja` 1.13.2 | 实际执行构建 | `..\tools\cmake\bin` |
 | `ctest` 4.4.3 | 跑测试 | `..\tools\cmake\bin` |
@@ -65,35 +66,60 @@ my_mini_infer/
 - 2026-09-20 系统级的 MinGW（装在 `C:\main\...`）被项目之外的东西删掉了，
   构建无缘无故就坏了。放进工作区之后，构建就自给自足了。
 
-用之前先激活（只对当前窗口有效）：
+> **为什么 g++ 是 8.1.0 而不是更新的版本？**
+>
+> 本项目路径里带中文（`文涵超` / `实习日志`）。试过 winlibs 的 GCC 16.2.0：
+> 它配的新版 binutils（`as.exe` / `ld.exe`）会把这些中文路径读成乱码，
+> 一编译就报 `can't create ...\ccXXXX.o` 或 `cannot find crt2.o`。
+> GCC 8.1.0 配的是老 binutils，对中文路径反而是好的。
+> 而且 GCC 8 是第一个完整支持 C++17 的版本，本项目要的就是 C++17。
+>
+> 完整的排查过程和证据在 `docs/m0_toolchain.md` 第 4 节。
+
+**现在新开窗口就能直接用，不需要每次激活。** 工具链已经写进用户级 PATH
+（`HKCU\Environment`，不需要管理员权限），新开的 PowerShell / cmd / VS Code
+里 `g++` / `cmake` / `ninja` / `ctest` 直接可用：
 
 ```powershell
-cd C:\Users\文涵超\Desktop\dsh_agent
-
-# PowerShell（注意开头有个点，表示点源）
-. .\tools\env.ps1
-
-# cmd
-call tools\env.cmd
+cd C:\Users\文涵超\Desktop\实习日志\my_mini_infer
+cmake --version
 ```
 
-激活后 `g++` / `cmake` / `ninja` / `ctest` 就能直接用了。
+只做了两件一次性的事（2026-09-25）：
 
-> **如果 PowerShell 报错 `running scripts is disabled on this system`**
->
-> 这是 Windows 默认的执行策略（Restricted），不是文件坏了。先执行下面这行，
-> 它只放宽当前这个窗口，关掉就恢复：
->
-> ```powershell
-> Set-ExecutionPolicy -Scope Process Bypass -Force
-> ```
->
-> 不想改策略也可以直接用 `cmd`，或者干脆用 `build.bat`（见下）。
+```powershell
+# 1) 把工作区工具链写进用户级 PATH（可重复执行；-Remove 撤销；-Show 只看）
+. ..\tools\install-path.ps1
 
-> **如果 PowerShell 报错 `running scripts is disabled on this system`**
+# 2) 当前用户的执行策略改成 RemoteSigned，让本地 .ps1 能直接跑
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+```
+
+> 为什么以前每次都要敲 `Set-ExecutionPolicy -Scope Process Bypass -Force` 和
+> `. ..\tools\env.ps1`？因为那两行都是「**只对当前窗口有效**」的临时补丁：
+> `$env:Path` 是进程级的，窗口一关就没了；执行策略默认是 Restricted，`.ps1`
+> 会被拒绝。现在改成一次性的用户级设置，就不用每次都来一遍了。
+> 详细对比见 `docs/m0_toolchain.md` 第 1 节。
+
+`env.ps1` / `env.cmd` **没有删**，留作「临时救急」：比如你不想动任何永久设置、
+或者在别人的机器上。用法不变：
+
+```powershell
+. ..\tools\env.ps1        # PowerShell（开头那个点表示点源，不能省）
+call ..\tools\env.cmd     # cmd
+```
+
+激活脚本会自己打印一遍每个工具的版本和实际路径。如果还想确认工具是**真的能用**，
+而不只是「文件躺在磁盘上」，再跑一次自检：
+
+```powershell
+. ..\tools\doctor.ps1          # 工具版本 + 真编一个小程序并运行
+. ..\tools\doctor.ps1 -Full    # 再加 CMake + Ninja + CTest 全链路
+```
+
+> **如果 PowerShell 还是报 `running scripts is disabled on this system`**
 >
-> 这是 Windows 默认的执行策略（Restricted），不是文件坏了。先执行下面这行，
-> 它只放宽当前这个窗口，关掉就恢复：
+> 说明第 2 步没做（或者被别的策略覆盖了）。先执行下面这行只放宽当前窗口：
 >
 > ```powershell
 > Set-ExecutionPolicy -Scope Process Bypass -Force
@@ -125,7 +151,7 @@ call tools\env.cmd
 ### 方式二：命令行
 
 ```powershell
-cd C:\Users\文涵超\Desktop\dsh_agent\my_mini_infer
+cd C:\Users\文涵超\Desktop\实习日志\my_mini_infer
 
 .\build.bat            # g++ 直接编译（最快）
 .\build.bat cmake      # 完整 CMake + Ninja + CTest
@@ -137,7 +163,7 @@ cd C:\Users\文涵超\Desktop\dsh_agent\my_mini_infer
 
 ### 方式三：手动跑 CMake
 
-先按上面的「工具链」一节激活环境，然后：
+工具链已经在用户级 PATH 里，**新开一个窗口直接就能跑**：
 
 ```powershell
 cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
@@ -176,3 +202,23 @@ ctest --test-dir build --output-on-failure
 - 每个函数都要能手算验证；
 - 不复制不理解的大段模板；
 - 卡住时先写清楚卡在哪一步。
+
+---
+
+## 2026-09-25 v2 计划更新
+
+当前最高优先级不是继续加新算子，而是先完成 M0 语言与工具地基。
+请先看：
+
+- 项目根目录 `TODO.md`：当前只做 M0 的操作清单；
+- `docs/self_check.md`：M0 自我检查与代码讲解模板；
+- `docs/TODO_M1_after_11_01.md`：M1 数值对齐操作单，11/1 后再开始；
+- `docs/m0_toolchain.md`：工具链速查（有什么、在哪、坏了怎么修、踩过哪些坑）。
+
+## 2026-09-25 环境状态（实测通过）
+
+- 工作区里的工具链已经补齐并自验：`g++ 8.1.0` + `cmake 4.4.3` + `ninja 1.13.2` + `ctest 4.4.3`。
+- 三种构建方式全部通过：`build.bat gpp` / `build.bat test` / `build.bat cmake`。
+- 自检命令：`. ..\tools\doctor.ps1 -Full`（会真的编译、运行、跑 CTest）。
+- 顺带确认：Python 3.14.6 + numpy 2.5.2 + **PyTorch 2.14.0** 都可用，
+  M1 的 `tools/gen_weights.py` 对拍可以跑起来。

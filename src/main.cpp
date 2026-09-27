@@ -1,4 +1,4 @@
-﻿#include "mini_infer/tensor.hpp"
+#include "mini_infer/tensor.hpp"
 
 #include <iostream>
 

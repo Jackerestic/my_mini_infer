@@ -1,0 +1,24 @@
+# 默认：文本文件在仓库里一律存 LF，检出时按平台转换
+* text=auto
+
+# C/C++ 源码与文档：仓库与工作区都用 LF
+*.cpp   text eol=lf
+*.hpp   text eol=lf
+*.h     text eol=lf
+*.c     text eol=lf
+*.md    text eol=lf
+*.txt   text eol=lf
+CMakeLists.txt text eol=lf
+*.cmake text eol=lf
+
+# Windows 脚本：保持原样，不要让 Git 转换
+*.bat   binary
+*.cmd   binary
+
+# 二进制产物
+*.exe   binary
+*.obj   binary
+*.o     binary
+*.a     binary
+*.png   binary
+*.jpg   binary

@@ -137,6 +137,36 @@ call ..\tools\env.cmd     # cmd
 - `.bat` / `.cmd` 反过来**不能**有 BOM，而且 cmd.exe 按 GBK 解析文件，
   所以里面只写 ASCII 英文。中文说明统一放在这个 README 里。
 
+### 维护提示：行尾与 BOM（2026-09-27 统一）
+
+仓库用 `.gitattributes` 固定了行尾策略（**权威来源是那个文件，不是本文档**）：
+
+- `*.cpp` / `*.hpp` / `*.md` / `*.txt` / `CMakeLists.txt` / `.gitignore` → **LF**
+- `*.bat` / `*.cmd` → `binary`（Git 不转换；`build.bat` 内部统一为 CRLF）
+- 二进制产物（`*.exe` / `*.obj` / `*.o` / `*.a`）→ `binary`
+
+**为什么要在意**：没有 `.gitattributes` 时，每个克隆者的行尾取决于各自的
+`core.autocrlf`，会出现「只改 1 行却整个文件 diff」。本机系统级 `core.autocrlf=true`，
+所以旧文件曾被写过 UTF-8 BOM，并出现「首行 CRLF、其余 LF」的混合状态（成因是
+PowerShell 的 `Set-Content` / `Out-File` 默认 `UTF-8 with BOM` + Windows 换行）。
+
+**改文件的正确姿势**：
+
+- **不要**用 `Set-Content` / `Out-File` / `>>` 改 `.cpp` / `.md` / `.gitignore`。
+- 用 VS Code 之类的固定编辑器，并关闭「添加 BOM」。
+- 新增文件后想让行尾立刻合规：`git add --renormalize .`（**必须带路径**）。
+
+**自查命令**（改动可疑时跑一遍）：
+
+```powershell
+git check-attr text eol -- src/main.cpp     # 看某文件命中哪条规则
+git status --short                           # 干净才提交
+```
+
+> ⚠️ **别用 `git show HEAD:file | Out-String` 去判断仓库里的行尾**：PowerShell 会把
+> 管道输出的 `\n` 转成 `\r\n`，你看到的是加工后的数据，会得出错误结论。要读原始字节，
+> 用 Python：`open(path,'rb').read().count(b'\r')`。
+
 ## 怎么编译
 
 ### 方式一：双击

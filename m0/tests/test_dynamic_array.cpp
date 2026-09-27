@@ -154,7 +154,7 @@ int main() {
     test_move_constructor();
     test_move_assignment();
     test_destructor_no_crash();
-    test_copy_assignment_strong_guarantee()
+    test_copy_assignment_strong_guarantee();
 
     if (g_failures == 0) {
         std::cout << "test_dynamic_array passed\n";

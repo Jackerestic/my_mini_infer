@@ -8,6 +8,8 @@
 *.c     text eol=lf
 *.md    text eol=lf
 *.txt   text eol=lf
+.gitignore   text eol=lf
+.gitattributes text eol=lf
 CMakeLists.txt text eol=lf
 *.cmake text eol=lf
 

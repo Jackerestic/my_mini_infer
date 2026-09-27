@@ -125,6 +125,23 @@ void test_destructor_no_crash() {
     c.push_back(3);
 }
 
+void test_copy_assignment_strong_guarantee() {
+    DynamicArray a;
+    a.push_back(1);
+    a.push_back(2);
+    DynamicArray b;
+    b.push_back(7);
+
+    // 用一个必然失败的容量触发 bad_alloc
+    DynamicArray huge;
+    // 技巧：先构造一个 capacity 极大的源对象不可行（会真的分配），
+    // 更实际的做法是把这条测试记为"已理解但无法在栈上构造"，
+    // 或者把 new 换成可注入的分配器（M2 之后再考虑）。
+    // 现阶段的最低要求：把"为什么测不了"写进 docs，而不是假装覆盖了。
+    //已理解但无法在栈上构造
+    //因为要触发bad_malloc需要分配很大的内存
+}
+
 }  // namespace
 
 int main() {
@@ -137,6 +154,7 @@ int main() {
     test_move_constructor();
     test_move_assignment();
     test_destructor_no_crash();
+    test_copy_assignment_strong_guarantee()
 
     if (g_failures == 0) {
         std::cout << "test_dynamic_array passed\n";

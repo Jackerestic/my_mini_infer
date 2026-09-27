@@ -23,18 +23,15 @@ public:
             return *this;
         }
 
+        int* newdata=other.capacity_>0?new int[other.capacity_]:nullptr;
         delete[] data_;
-        data_ = nullptr;
+        data_=newdata;
 
-        capacity_ = other.capacity_;
-        size_ = other.size_;
-
-        if (capacity_ > 0) {
-            data_ = new int[capacity_];
-        }
-        for (std::size_t i = 0; i < size_; ++i) {
+        for (std::size_t i = 0; i < other.size_; ++i) {
             data_[i] = other.data_[i];
         }
+        size_ = other.size_;
+        capacity_ = other.capacity_;
         return *this;
     }
 

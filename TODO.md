@@ -122,17 +122,21 @@
 
 ## 8. 当前下一轮做什么
 
-M1 文件解析已完成并提交。
+M1 已完成。
 
-下一步：M1 前向对拍。
+- 完成日期：2026-10-01
+- 验收报告：docs/verify.md
+- commit：520b80c
+- 结果：h 2.38419e-07，o 4.76837e-07，y 1.49012e-08，M1 PASS
 
-1. 读 docs/m1_verify.md。
-2. 在 examples/m1_parse_mlp.cpp 里加入：
-   - linear -> relu -> linear -> relu -> softmax
-   - 和 tensors["h"]、tensors["o"]、tensors["y"] 对比
-   - 最大绝对误差小于 1e-5
-3. 编译运行，确认输出 M1 PASS。
-4. 把完整输出填进 docs/verify.md。
-5. 提交代码和报告。
+下一步进入 M2 工程化。
 
-这个任务不直接给完整代码，只给验收标准。
+M2 第一个小目标：把现有手写测试升级到正式测试框架。
+
+1. 确定使用 Catch2（单头文件版最适合零基础）。
+2. 新建 tests/test_tensor_catch2.cpp。
+3. 先迁移 5 到 10 条最关键断言，跑通 ctest。
+4. 之后逐步扩展到 30 条以上。
+5. 保留原来的 test_tensor 和 test_dynamic_array 作为过渡。
+
+先不要一次性迁移全部测试，也不要提前做 CI。

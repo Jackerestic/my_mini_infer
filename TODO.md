@@ -122,19 +122,16 @@
 
 ## 8. 当前下一轮做什么
 
-M0 已完成。
+M0 已完成，M1 文件读取已完成并提交。
 
-- 完成日期：2026-09-26
-- 原始完成 commit：c9b19ce
-- 验收证据：m0/docs/self_check.md
-- M0 材料已整合到 m0/ 目录
+下一步：解析 data/mlp.txt。
 
-现在进入 M1 前置：
-
-1. 读 docs/m1_file_io.md。
-2. 补完 examples/m1_file_io.cpp 的 TODO 1 到 TODO 3。
-3. 在项目根目录运行：
-   g++ -std=c++17 -Wall -Wextra examples\m1_file_io.cpp -o build\m1_file_io.exe
-   .\build\m1_file_io.exe
-4. 确认能打印 data/mlp.txt 的前几行。
-5. 完成后发我代码和输出，再进入矩阵解析。
+1. 读 docs/m1_parse_mlp.md。
+2. 补完 examples/m1_parse_mlp.cpp 的 TODO 1。
+3. 在项目根目录编译运行：
+   New-Item -ItemType Directory -Force -Path build\tmp | Out-Null
+   $env:TEMP = "$PWD\build\tmp"
+   $env:TMP = "$env:TEMP"
+   g++ -std=c++17 -Wall -Wextra -Iinclude examples\m1_parse_mlp.cpp src\tensor.cpp -o build\m1_parse_mlp.exe
+   .\build\m1_parse_mlp.exe
+4. 期望输出 8 个矩阵的形状：x 3 4、W1 6 4、b1 1 6、W2 3 6、b2 1 3、h 3 6、o 3 3、y 3 3。

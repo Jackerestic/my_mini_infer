@@ -122,16 +122,17 @@
 
 ## 8. 当前下一轮做什么
 
-M0 已完成，M1 文件读取已完成并提交。
+M1 文件解析已完成并提交。
 
-下一步：解析 data/mlp.txt。
+下一步：M1 前向对拍。
 
-1. 读 docs/m1_parse_mlp.md。
-2. 补完 examples/m1_parse_mlp.cpp 的 TODO 1。
-3. 在项目根目录编译运行：
-   New-Item -ItemType Directory -Force -Path build\tmp | Out-Null
-   $env:TEMP = "$PWD\build\tmp"
-   $env:TMP = "$env:TEMP"
-   g++ -std=c++17 -Wall -Wextra -Iinclude examples\m1_parse_mlp.cpp src\tensor.cpp -o build\m1_parse_mlp.exe
-   .\build\m1_parse_mlp.exe
-4. 期望输出 8 个矩阵的形状：x 3 4、W1 6 4、b1 1 6、W2 3 6、b2 1 3、h 3 6、o 3 3、y 3 3。
+1. 读 docs/m1_verify.md。
+2. 在 examples/m1_parse_mlp.cpp 里加入：
+   - linear -> relu -> linear -> relu -> softmax
+   - 和 tensors["h"]、tensors["o"]、tensors["y"] 对比
+   - 最大绝对误差小于 1e-5
+3. 编译运行，确认输出 M1 PASS。
+4. 把完整输出填进 docs/verify.md。
+5. 提交代码和报告。
+
+这个任务不直接给完整代码，只给验收标准。

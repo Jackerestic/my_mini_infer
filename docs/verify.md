@@ -4,10 +4,11 @@
 
 ## 1. 环境
 
-- 日期：2026-10-01
+- 日期：2026-10-04
 - 编译器：g++ 8.1.0 (MinGW-w64)
 - 操作系统：Windows
 - 数据文件：data/mlp.txt
+- 参考文件：data/mlp_numpy_ref.txt
 
 ## 2. 参考数据生成
 
@@ -24,7 +25,7 @@ python tools/recompute_ref.py
 ```
 
 `recompute_ref.py` 只读取 x、W1、b1、W2、b2，不读取 data/mlp.txt 里的 h、o、y。
-参考值由独立脚本在测试时重新计算。
+参考值来自 mlp_numpy_ref.txt（独立重算）。
 
 随机种子：42
 
@@ -63,4 +64,5 @@ M1 PASS
 ## 6. 备注
 
 - 卡住的地方：文件读取的 TEMP 权限，已通过把 TEMP/TMP 指向 build/tmp 解决。
-- 下一步：M2 工程化。
+- 重新运行说明：本次使用 data/mlp_numpy_ref.txt 作为参考值，参考值由 tools/recompute_ref.py 在测试时独立重算。
+- 下一步：M3 性能工程。

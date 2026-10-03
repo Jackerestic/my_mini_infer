@@ -54,3 +54,8 @@ target_include_directories(test_tensor_catch2 PRIVATE
 target_link_libraries(test_tensor_catch2 PRIVATE mini_infer)
 
 catch_discover_tests(test_tensor_catch2)
+
+add_executable(bench_matmul
+    benchmarks/bench_matmul.cpp
+)
+target_link_libraries(bench_matmul PRIVATE mini_infer)

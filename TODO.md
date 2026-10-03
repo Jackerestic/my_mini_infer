@@ -122,21 +122,12 @@
 
 ## 8. 当前下一轮做什么
 
-M1 已完成。
+M2 已完成，进入 M3 性能工程。
 
-- 完成日期：2026-10-01
-- 验收报告：docs/verify.md
-- commit：520b80c
-- 结果：h 2.38419e-07，o 4.76837e-07，y 1.49012e-08，M1 PASS
+第一步：先测 matmul 基线，不要先优化。
 
-下一步进入 M2 工程化。
-
-M2 第一个小目标：把现有手写测试升级到正式测试框架。
-
-1. 确定使用 Catch2（单头文件版最适合零基础）。
-2. 新建 tests/test_tensor_catch2.cpp。
-3. 先迁移 5 到 10 条最关键断言，跑通 ctest。
-4. 之后逐步扩展到 30 条以上。
-5. 保留原来的 test_tensor 和 test_dynamic_array 作为过渡。
-
-先不要一次性迁移全部测试，也不要提前做 CI。
+1. 读 docs/m3_benchmark.md。
+2. 构建并运行 benchmarks/bench_matmul.cpp，记录 512x512 的 median。
+3. 把基线数字填进 docs/benchmark.md。
+4. 下一步再改 Tensor::matmul 的循环顺序：i-j-k -> i-k-j。
+5. 优化后重新测一次，填进 docs/benchmark.md，并解释为什么快。

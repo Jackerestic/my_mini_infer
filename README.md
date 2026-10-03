@@ -1,3 +1,5 @@
+![C++ CI](https://github.com/Jackerestic/my_mini_infer/actions/workflows/ci.yml/badge.svg)
+
 # my_mini_infer
 
 用 C++ 从零实现一个极小的神经网络推理引擎，作为 AI Infra 入门项目。

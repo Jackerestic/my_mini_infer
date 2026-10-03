@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
-
+#include <cmath>
 #include "mini_infer/tensor.hpp"
 using mini_infer::Tensor;
 
@@ -112,3 +112,81 @@ TEST_CASE("linear three tensors:x,w,b","[tensor]"){
     CHECK(r.at(0,0)==19.5f);
     CHECK(r.at(1,1)==38.5f);
 }
+
+TEST_CASE("relu:three situation","[tensor]"){
+    Tensor a(2,2);
+    Tensor b(2,2);
+    Tensor c(2,2);
+
+    a.at(0,0)=-1.0f;
+    a.at(0,1)=2.0f;
+    a.at(1,0)=-3.0f;
+    a.at(1,1)=4.0f;
+
+    b.at(0,0)=-1.0f;
+    b.at(0,1)=-2.0f;
+    b.at(1,0)=-3.0f;
+    b.at(1,1)=-4.0f;
+
+    c.at(0,0)=1.0f;
+    c.at(0,1)=2.0f;
+    c.at(1,0)=3.0f;
+    c.at(1,1)=4.0f;
+
+    Tensor a0=a.relu();
+    Tensor b0=b.relu();
+    Tensor c0=c.relu();
+
+    REQUIRE(a.rows()==2);
+    CHECK(a.cols()==2);
+    CHECK(a0.at(0,0)==0);
+    CHECK(a0.at(1,1)==4.0f);
+    CHECK(b0.at(0,0)==0);
+    CHECK(b0.at(1,1)==0);
+    CHECK(c0.at(0,0)==1.0f);
+    CHECK(c0.at(1,1)==4.0f);
+}
+
+TEST_CASE("transpose","[tensor]"){
+    Tensor t(2,3);
+
+    t.at(0,0)=1.0f;
+    t.at(0,1)=2.0f;
+    t.at(0,2)=3.0f;
+    t.at(1,0)=4.0f;
+    t.at(1,1)=5.0f;
+    t.at(1,2)=6.0f;
+
+    Tensor t0=t.transpose();
+    Tensor t1=t.transpose().transpose();
+    REQUIRE(t0.rows()==3);
+    CHECK(t0.cols()==2);
+    CHECK(t0.at(0,1)==4.0f);
+    CHECK(t0.at(1,0)==2.0f);
+    CHECK(t0.at(2,1)==6.0f);
+    CHECK(t1.rows()==2);
+    CHECK(t1.cols()==3);
+    CHECK(t1.at(0,2)==3.0f);
+    CHECK(t1.at(1,2)==6.0f);
+    CHECK(t.rows()==2);
+    CHECK(t.cols()==3);
+}
+
+TEST_CASE("softmax","[tensor]"){
+    Tensor t(1,2);
+    Tensor x(1,2);
+
+    t.at(0,0)=2,
+    t.at(0,1)=1;
+    x.at(0,0)=1001;
+    x.at(0,1)=1000;
+
+    Tensor t0=t.softmax();
+    Tensor x0=x.softmax();
+
+    REQUIRE(std::fabs(t0.at(0,0)-0.7310586)<1e-5);
+    CHECK(std::fabs(t0.at(0,1)-0.2689414)<1e-5);
+    CHECK(std::fabs(x0.at(0,0)+x0.at(0,1)-1.0)<1e-5);
+
+}
+

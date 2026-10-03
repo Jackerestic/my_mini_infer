@@ -40,3 +40,13 @@ target_include_directories(test_dynamic_array PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/m0/include
 )
 add_test(NAME test_dynamic_array COMMAND $<TARGET_FILE:test_dynamic_array>)
+
+add_executable(test_tensor_catch2
+    tests/test_tensor_catch2.cpp
+)
+target_include_directories(test_tensor_catch2 PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/catch2
+)
+target_link_libraries(test_tensor_catch2 PRIVATE mini_infer)
+add_test(NAME test_tensor_catch2 COMMAND $<TARGET_FILE:test_tensor_catch2>)

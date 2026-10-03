@@ -9,13 +9,22 @@
 - 操作系统：Windows
 - 数据文件：data/mlp.txt
 
-## 2. 数据生成
+## 2. 参考数据生成
 
-命令：
+固定输入和权重：
 
 ```powershell
 python tools/gen_weights.py
 ```
+
+测试时独立重算 h/o/y：
+
+```powershell
+python tools/recompute_ref.py
+```
+
+`recompute_ref.py` 只读取 x、W1、b1、W2、b2，不读取 data/mlp.txt 里的 h、o、y。
+参考值由独立脚本在测试时重新计算。
 
 随机种子：42
 

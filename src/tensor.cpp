@@ -76,10 +76,10 @@ Tensor Tensor::matmul(const Tensor& other) const {
 
     Tensor result(rows(), other.cols());
     for (std::size_t r = 0; r < rows(); ++r) {
-        for (std::size_t c = 0; c < other.cols(); ++c) {
-            result.at(r, c) = 0.0f;
-            for (std::size_t k = 0; k < cols(); ++k) {
-                result.at(r, c) += at(r, k) * other.at(k, c);
+        for (std::size_t k = 0; k < cols(); ++k) {
+            const float a=at(r,k);
+            for (std::size_t c = 0; c< other.cols(); ++c) {
+                result.at(r, c) += a* other.at(k, c);
             }
         }
     }

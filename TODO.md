@@ -122,12 +122,15 @@
 
 ## 8. 当前下一轮做什么
 
-M2 已完成，进入 M3 性能工程。
+M3 已正式通过，进入 M4。
 
-第一步：先测 matmul 基线，不要先优化。
+先看 docs/m4_plan.md。
 
-1. 读 docs/m3_benchmark.md。
-2. 构建并运行 benchmarks/bench_matmul.cpp，记录 512x512 的 median。
-3. 把基线数字填进 docs/benchmark.md。
-4. 下一步再改 Tensor::matmul 的循环顺序：i-j-k -> i-k-j。
-5. 优化后重新测一次，填进 docs/benchmark.md，并解释为什么快。
+M4 第一小步：正式模型接口 + 批处理推理。
+
+1. 新建 include/mini_infer/mlp.hpp 和 src/mlp.cpp。
+2. 定义 Mlp 类，保存 W1、b1、W2、b2。
+3. 实现 Tensor forward(const Tensor& x) const。
+4. 新建 examples/batch_infer.cpp，一次输入 N 条样本，输出 N 行概率。
+5. 新建 Catch2 测试，验证输出行数、形状、每行概率和约等于 1。
+6. 不要先做 HTTP 服务。

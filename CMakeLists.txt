@@ -13,6 +13,7 @@ endif()
 
 add_library(mini_infer
     src/tensor.cpp
+    src/mlp.cpp
 )
 
 target_include_directories(mini_infer

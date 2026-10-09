@@ -122,15 +122,15 @@
 
 ## 8. 当前下一轮做什么
 
-M3 已正式通过，进入 M4。
+M4 前两步已完成。
 
-先看 docs/m4_plan.md。
+下一步：最小 HTTP 推理服务。
 
-M4 第一小步：正式模型接口 + 批处理推理。
+注意：这一步由你实现，我只 review。
 
-1. 新建 include/mini_infer/mlp.hpp 和 src/mlp.cpp。
-2. 定义 Mlp 类，保存 W1、b1、W2、b2。
-3. 实现 Tensor forward(const Tensor& x) const。
-4. 新建 examples/batch_infer.cpp，一次输入 N 条样本，输出 N 行概率。
-5. 新建 Catch2 测试，验证输出行数、形状、每行概率和约等于 1。
-6. 不要先做 HTTP 服务。
+1. 读 docs/m4_http.md。
+2. 下载 third_party/httplib/httplib.h。
+3. 新建 examples/http_server.cpp。
+4. 实现 GET /health 和 POST /predict。
+5. 自己用 curl 验证，再提交。
+6. 完成后把代码和 curl 输出发我。

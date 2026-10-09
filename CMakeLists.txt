@@ -14,6 +14,7 @@ endif()
 add_library(mini_infer
     src/tensor.cpp
     src/mlp.cpp
+    src/tensor_io.cpp
 )
 
 target_include_directories(mini_infer

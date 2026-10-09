@@ -1,64 +1,14 @@
 #include "mini_infer/tensor.hpp"
+#include "mini_infer/tensor_io.hpp"
 
 #include <cassert>
 #include <cmath>
-#include <fstream>
 #include <iostream>
 #include <map>
-#include <sstream>
 #include <string>
-#include <utility>
 
 using mini_infer::Tensor;
 using mini_infer::linear;
-
-bool load_tensors(const std::string& path, std::map<std::string, Tensor>& out) {
-    std::ifstream fin(path);
-    if (!fin) {
-        std::cout << "open failed: " << path << '\n';
-        return false;
-    }
-
-    std::string line;
-    while (std::getline(fin, line)) {
-        if (line.empty()) {
-            continue;
-        }
-
-        std::istringstream header(line);
-        std::string name;
-        std::size_t rows = 0;
-        std::size_t cols = 0;
-
-        if (!(header >> name >> rows >> cols)) {
-            std::cout << "bad header in " << path << ": " << line << '\n';
-            return false;
-        }
-
-        Tensor t(rows, cols);
-
-        for (std::size_t r = 0; r < rows; ++r) {
-            if (!std::getline(fin, line)) {
-                std::cout << "unexpected end of file: " << path << '\n';
-                return false;
-            }
-
-            std::istringstream row_stream(line);
-            for (std::size_t c = 0; c < cols; ++c) {
-                float value = 0.0f;
-                if (!(row_stream >> value)) {
-                    std::cout << "bad value in " << path << ": " << line << '\n';
-                    return false;
-                }
-                t.at(r, c) = value;
-            }
-        }
-
-        out.emplace(name, std::move(t));
-    }
-
-    return true;
-}
 
 float max_abs_error(const Tensor& got, const Tensor& want) {
     assert(got.rows() == want.rows() && got.cols() == want.cols());
@@ -77,12 +27,14 @@ float max_abs_error(const Tensor& got, const Tensor& want) {
 
 int main() {
     std::map<std::string, Tensor> inputs;
-    if (!load_tensors("data/mlp.txt", inputs)) {
+    if (!mini_infer::load_tensors("data/mlp.txt", inputs)) {
+        std::cout << "failed to load data/mlp.txt\n";
         return 1;
     }
 
     std::map<std::string, Tensor> refs;
-    if (!load_tensors("data/mlp_numpy_ref.txt", refs)) {
+    if (!mini_infer::load_tensors("data/mlp_numpy_ref.txt", refs)) {
+        std::cout << "failed to load data/mlp_numpy_ref.txt\n";
         return 1;
     }
 

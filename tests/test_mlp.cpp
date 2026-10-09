@@ -19,10 +19,9 @@ TEST_CASE("Mlp test","[tensor]"){
     REQUIRE(y.rows()==x.rows());
     CHECK(y.cols()==2);
 
-    bool judge=1;
-
     for(std::size_t r=0;r<y.rows();r++){
         float sum=0.0f;
+        bool judge=1;
         for(std::size_t c=0;c<y.cols();c++){
             float tmp=y.at(r,c);
             if(!(tmp>=0.0f&&tmp<=1.0f)){
@@ -30,8 +29,8 @@ TEST_CASE("Mlp test","[tensor]"){
             }
             sum+=tmp;
         }
-        CHECK(std::fabs(sum-1.0)<1e-5);
-        CHECK(judge==1);
+        CHECK(std::fabs(sum-1.0f)<1e-5f);
+        CHECK(judge);
     }
 
 }

@@ -60,3 +60,18 @@ add_executable(bench_matmul
     benchmarks/bench_matmul.cpp
 )
 target_link_libraries(bench_matmul PRIVATE mini_infer)
+
+add_executable(batch_infer
+    examples/batch_infer.cpp
+)
+target_link_libraries(batch_infer PRIVATE mini_infer)
+
+add_executable(test_mlp
+    tests/test_mlp.cpp
+)
+target_include_directories(test_mlp PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/catch2
+)
+target_link_libraries(test_mlp PRIVATE mini_infer)
+catch_discover_tests(test_mlp)

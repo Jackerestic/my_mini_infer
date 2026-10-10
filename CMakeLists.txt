@@ -81,3 +81,19 @@ add_executable(bench_at
     benchmarks/bench_at.cpp
 )
 target_link_libraries(bench_at PRIVATE mini_infer)
+
+add_executable(infer_server
+    examples/http_server.cpp
+)
+target_include_directories(infer_server PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/httplib
+)
+target_link_libraries(infer_server PRIVATE mini_infer)
+
+if (WIN32)
+    target_link_libraries(infer_server PRIVATE ws2_32)
+else()
+    find_package(Threads REQUIRED)
+    target_link_libraries(infer_server PRIVATE Threads::Threads)
+endif()

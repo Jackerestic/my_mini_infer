@@ -12,37 +12,6 @@
 // =====================================================================
 namespace mini_infer {
 
-Tensor::Tensor(std::size_t rows, std::size_t cols, float value)
-    : shape_{rows, cols}, data_(rows * cols, value) {
-    assert(rows > 0 && cols > 0);
-}
-
-std::size_t Tensor::rows() const {
-    return shape_.at(0);
-}
-
-std::size_t Tensor::cols() const {
-    return shape_.at(1);
-}
-
-std::size_t Tensor::size() const {
-    return data_.size();
-}
-
-const std::vector<std::size_t>& Tensor::shape() const {
-    return shape_;
-}
-
-float& Tensor::at(std::size_t row, std::size_t col) {
-    assert(row < rows() && col < cols());
-    return data_[row * cols() + col];
-}
-
-const float& Tensor::at(std::size_t row, std::size_t col) const {
-    assert(row < rows() && col < cols());
-    return data_[row * cols() + col];
-}
-
 void Tensor::fill(float value) {
     for (float& x : data_) {
         x = value;

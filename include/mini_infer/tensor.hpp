@@ -2,20 +2,47 @@
 
 #include <cstddef>
 #include <vector>
+#include <cassert>
 
 namespace mini_infer {
 
 class Tensor {
 public:
-    Tensor(std::size_t rows, std::size_t cols, float value = 0.0f);
+    Tensor(std::size_t rows, std::size_t cols, float value = 0.0f)
+        :shape_{rows,cols},data_(rows*cols,value){
+            assert(rows>0&&cols>0);
+        }
 
-    std::size_t rows() const;
-    std::size_t cols() const;
-    std::size_t size() const;
-    const std::vector<std::size_t>& shape() const;
+    const std::vector<std::size_t>& shape() const{
+        return shape_;
+    }
+    std::size_t rows() const{
+        return shape_[0];
+    }
+    std::size_t cols() const{
+        return shape_[1];
+    }
+    std::size_t size() const{
+        return data_.size();
+    }
+    
 
-    float& at(std::size_t row, std::size_t col);
-    const float& at(std::size_t row, std::size_t col) const;
+    float& at(std::size_t row, std::size_t col){
+        assert(row<rows()&&col<cols());
+        return data_[row*cols()+col];
+    }
+    const float& at(std::size_t row, std::size_t col) const{
+        assert(row<rows()&&col<cols());
+        return data_[row*cols()+col];
+    }
+
+    float* data(){
+        return data_.data();
+    }
+
+    const float* data() const{
+        return data_.data();
+    }
 
     void fill(float value);
     void print() const;

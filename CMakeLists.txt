@@ -76,3 +76,8 @@ target_include_directories(test_mlp PRIVATE
 )
 target_link_libraries(test_mlp PRIVATE mini_infer)
 catch_discover_tests(test_mlp)
+
+add_executable(bench_at
+    benchmarks/bench_at.cpp
+)
+target_link_libraries(bench_at PRIVATE mini_infer)

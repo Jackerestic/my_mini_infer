@@ -88,6 +88,29 @@ checksum 全部一致：
 
 ## 8. 第二步：inline at()
 
-优化前：at() 8908.61 ms vs 裸指针 770.378 ms，约 11.6 倍
-优化后：at() 810.742 ms vs 裸指针 810.126 ms，约 1.001 倍
-checksum 不变：10708.4
+问题：at() 原先只有声明，定义在 src/tensor.cpp，跨 TU 调用无法内联。
+
+改前对照（总指挥）：
+
+```text
+at()      8908.61 ms
+裸指针     770.378 ms
+约 11.6 倍
+```
+
+改法：把 rows/cols/size/shape/at 的实现移到 tensor.hpp，使其可内联；并从 src/tensor.cpp 删除旧定义。
+
+改后实测（用户正常终端，1024x1024，20 轮交替）：
+
+```text
+at_ikj median: 146.641 ms
+ptr_ikj median: 150.677 ms
+median per-round ratio: 0.972715x
+checksum: 10708.4
+```
+
+说明：
+- inline 后，at() 版本和裸指针版本已经同速；
+- ratio 约 0.97 到 1.00，属于测量噪声；
+- 跨 TU 函数调用开销已消除；
+- checksum 不变，正确性没问题。

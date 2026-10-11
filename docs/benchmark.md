@@ -3,7 +3,7 @@
 ## 1. 环境
 
 - 日期：2026-10-07
-- CPU：未记录
+- CPU：Intel(R) Core(TM) i7-14650HX
 - 操作系统：Windows
 - 编译器：g++ 8.1.0 (MinGW-w64)
 - 构建模式：Release，-O3 -DNDEBUG

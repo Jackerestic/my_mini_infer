@@ -35,6 +35,8 @@ flowchart LR
   - MSVC 2019+
   - GCC 8+
   - Clang 10+
+- Python 3.10+
+- NumPy
 
 ## Quick Start
 
@@ -46,7 +48,19 @@ cmake --build build
 ctest --test-dir build --output-on-failure
 ```
 
+## Generate Data
+
+The repository includes `data/mlp.txt` and `data/mlp_numpy_ref.txt`.
+To regenerate them from scratch:
+
+```powershell
+python tools/gen_weights.py
+python tools/recompute_ref.py
+```
+
 ## HTTP Inference Server
+
+### GET/health
 
 Start the server:
 
@@ -61,6 +75,8 @@ Check health:
 ```powershell
 curl.exe http://127.0.0.1:8080/health
 ```
+
+### POST/predict
 
 Run a prediction:
 
@@ -106,11 +122,16 @@ mini_infer/
 
 ## Limitations
 
+- CPU only; no CUDA or GPU support
 - Only 2D Tensor
 - Only a fixed two-layer MLP
+- Input dimension is fixed by `W1.cols()`
 - Single-threaded HTTP server
+- No dynamic batching
 - No JSON API
-- No CUDA or quantization
+- No authentication
+- No training or backpropagation
+- No quantization
 
 ## Documentation
 
